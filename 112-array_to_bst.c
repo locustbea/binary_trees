@@ -1,21 +1,25 @@
 #include "binary_trees.h"
+
 /**
- * bst_search - Searches for a value in a binary search tree.
- * @tree: A pointer to the root node of the BST to search.
- * @value: The value to search for in the BST.
+ * array_to_bst - builds a Binary Search Tree from an array.
+ * @array: pointer to the first element of the array to be converted.
+ * @size: number of element in the array.
  *
- * Return: If the tree is NULL or the value is not found, NULL.
- *         Otherwise, a pointer to the node containing the value.
+ * If a value of the array is already present in the tree, this value must
+ * be ignored.
+ *
+ * Return: pointer to the root node of the created BST, or NULL on failure.
  */
-bst_t *bst_search(const bst_t *tree, int value)
+bst_t *array_to_bst(int *array, size_t size)
 {
-	if (tree != NULL)
-	{
-		if (tree->n == value)
-			return ((bst_t *)tree);
-		if (tree->n > value)
-			return (bst_search(tree->left, value));
-		return (bst_search(tree->right, value));
-	}
-	return (NULL);
+	bst_t *root = NULL;
+	size_t i;
+
+	if (!array)
+		return (NULL);
+
+	for (i = 0; i < size; i++)
+		bst_insert(&root, array[i]);
+
+	return (root);
 }
